@@ -1,5 +1,5 @@
 {
-  "name": "reason-cli",
+  "name": "@wishcore/reason-cli",
   "version": "1.0.0",
   "description": "Reason API CLI tool",
   "main": "dist/src/index.js",

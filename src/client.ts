@@ -38,7 +38,9 @@ export class Client {
                 } catch (e) { return console.log('Error:', e, ev); }
                 
                 if (msg.err) {
-                    return this.cbs[msg.err].cb(msg.data, true);
+                    const error = new Error(msg.data?.debug?.[0]?.message || msg.data?.msg || 'Failed without giving reason');
+
+                    return this.cbs[msg.err].cb(error, true);
                 }
                 if (msg.ack || msg.sig) {
                     this.cbs[msg.ack || msg.sig].cb(null, !msg.sig, msg.data);
