@@ -12,6 +12,11 @@ interface ClientOpts {
     host?: string
 }
 
+/**
+ * Reason Client
+ *
+ * Allows connecting to the Reason Backend and running rpc commands
+ */
 export class Client {
     id = 0;
     cbs: { [key: number]: RpcCallback } = {};

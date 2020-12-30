@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Reason API CLI tool",
   "main": "dist/src/index.js",
-  "types" : "dist/src/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "bin": {
     "reason-cli": "./bin/cli"
   },
@@ -16,14 +16,15 @@
   "license": "ISC",
   "homepage": "https://reason.wishtech.org",
   "dependencies": {
+    "@wishcore/wish-rpc": "0.6.7",
     "bson-buffer": "1.0.2",
     "colors": "1.3.2",
     "read": "1.0.7",
     "rxjs": "6.3.3",
-    "wish-rpc": "0.6.5",
     "ws": "6.1.3"
   },
   "devDependencies": {
+    "@types/node": "14.14.16",
     "@types/ws": "6.0.1"
   }
 }
