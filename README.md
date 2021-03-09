@@ -44,16 +44,14 @@ const { Client } = require('reason-cli');
 const client = new Client('ws://localhost:8080');
 
 client.ready().subscribe(() => {
-    cli.request('document.add', [arguments]).subscribe((data) => {
-        if (err) { return console.log('Failed posting to wall', err, data); }
-
-        console.log('wall2.new_post response:', data);
-
-        setTimeout(() => {
-            cli.request('document.list', []).subscribe((data) => {
-                cli.disconnect();
-            }); 
-        }, 5000);
-    })
+    client.request('document.list', []).subscribe({
+        next: (data) => {
+            client.disconnect();
+        },
+        error: (error) => {
+            console.log('Error in example.js:', error.toString());
+            client.disconnect();
+        }
+    });
 });
 ```

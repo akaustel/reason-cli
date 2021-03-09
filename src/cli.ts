@@ -1,6 +1,5 @@
 import { Client } from './client';
 
-var pkg = require("../package.json");
 var colors = require('colors');
 var { inspect } = require("util");
 
@@ -153,6 +152,7 @@ export class Cli {
                     if (args === 'ok') {
                         return;
                     }
+
                     switch (args[0]) {
                         case 'document.changed':
                             console.log('document.changed:', args[1]);
