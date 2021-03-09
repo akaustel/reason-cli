@@ -18,9 +18,10 @@ export class Cli {
             initMethods(client);
         });
         
-        function initMethods(client) {
+        function initMethods(client: Client) {
             var repl;
             var methods = {};
+            let identities = {};
         
             client.request('methods', []).subscribe((_methods) => {
                 //console.log('methods', _methods);
@@ -140,12 +141,32 @@ export class Cli {
         
                     return repl;
                 }
-        
+
+                client.request('wish', ['identity.list', []]).subscribe((result) => {
+                    identities = result.data.reduce((aggr, item) => {
+                        aggr[item.uid.toString('hex')] = item;
+                        return aggr;
+                    }, {});
+                });
+
                 client.request('signals', []).subscribe((args) => {
+                    if (args === 'ok') {
+                        return;
+                    }
                     switch (args[0]) {
                         case 'document.changed':
                             console.log('document.changed:', args[1]);
                             break;
+                        case 'peer.online': {
+                            const peer = args[1];
+                            console.log('online:', identities[peer.ruid.toString('hex')].alias);
+                            break;
+                        }
+                        case 'peer.offline': {
+                            const peer = args[1];
+                            console.log('offline:', identities[peer.ruid.toString('hex')].alias);
+                            break;
+                        }
                         default:
                             console.log('unknown signal from Reason:', args[0], args[1]);
                             break;
